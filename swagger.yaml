@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: Url shortener services
+  description: Provide simple web service to convert between short text and full url
+  version: 1.0.0
+servers:
+  - url: "http://localhost:8080"
+    description: Development Server
+paths:
+  /:
+    post:
+      summary: Create code for full url
+      tags:
+        - Shorten Url
+      operationId: shortenUrl
+      requestBody:
+        description: Specification for creating shortened url
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UrlShortenSpec"
+      responses:
+        "200":
+          description: The record has been created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UrlShortenResult"
+        "400":
+          description: The url is invalid
+        "409":
+          description: The potential code has been taken by others
+  /{code}:
+    get:
+      summary: Get full url by code
+      tags:
+        - Shorten Url
+      operationId: getUrl
+      parameters:
+        - in: path
+          name: code
+          schema:
+            type: string
+          required: true
+          description: The code of shortened url
+      responses:
+        "302":
+          description: The record is found with a redirection response
+        "400":
+          description: The code is invalid
+        "404":
+          description: The code is not found
+    delete:
+      summary: Delete code by secret
+      tags:
+        - Shorten Url
+      operationId: deleteUrl
+      parameters:
+        - in: path
+          name: code
+          schema:
+            type: string
+          required: true
+          description: The code of shortened url
+        - in: query
+          name: secret
+          schema:
+            type: string
+          required: true
+          description: The secret for delete operation
+      responses:
+        "204":
+          description: The code is cleared
+        "400":
+          description: The code is invalid
+        "401":
+          description: The secret is not allowed for deletion
+components:
+  schemas:
+    UrlShortenSpec:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Full url from the request
+        secret:
+          type: string
+          description: Secret for delete operation, generated if empty
+      required:
+        - url
+    UrlShortenResult:
+      allOf:
+        - $ref: "#/components/schemas/UrlShortenSpec"
+        - type: object
+          properties:
+            code:
+              type: string
+              description: Result code of the full url
+          required:
+            - code
