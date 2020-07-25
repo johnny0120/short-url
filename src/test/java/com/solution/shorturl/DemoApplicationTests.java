@@ -39,7 +39,7 @@ class DemoApplicationTests {
 
     public static Stream<Arguments> generateUrlParameters() {
         Random random = new Random();
-        return IntStream.range(0, 100).mapToObj(i -> {
+        return IntStream.range(0, 1).mapToObj(i -> {
             boolean isHttps = random.nextBoolean();
             boolean hasSecret = random.nextBoolean();
             String domain = random.ints(1 + random.nextInt(5))
