@@ -18,6 +18,12 @@ For building and running the application you need:
 -   [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 -   [Maven 3](https://maven.apache.org)
 
+## Core Files
+
+-   [Service](src/main/java/com/solution/shorturl/service/UrlShortenServiceImpl.java)
+-   [Algorithm](src/main/java/com/solution/shorturl/util/UrlUtils.java#L45)
+-   [Database](src/main/resources/db/migration/V202007242000__urlshorten.sql)
+
 ## Running the application
 
 ### test
