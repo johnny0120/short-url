@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Url shortener services
   description: Provide simple web service to convert between short text and full url
-  version: 1.0.0
+  version: 0.0.1-SNAPSHOT
 servers:
   - url: "http://localhost:8080"
     description: Development Server
