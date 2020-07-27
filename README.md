@@ -32,6 +32,8 @@ For building and running the application you need:
 mvn test
 ```
 
+Coverage report location after running the above command: `target/site/jacoco/index.html`
+
 ### run
 
 ```shell
